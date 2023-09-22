@@ -8,8 +8,8 @@ contaning real ground observation data. Each file has the following information:
 - Start Date/Time of the records
 - Frequency of the records ( for instance 30 minutes)
 - Observation data (in rows) for temperature, humidity, wind, 
-    precipation, radiation, etc. There is an arbitrary number of 
-    records covering several years.
+    precipation, radiation, etc.
+    - There is an arbitrary number of records covering several years.
  
 We want to be able to:
 1. For a given field, count the number of records that are greater 
