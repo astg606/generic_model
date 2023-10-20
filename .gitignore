@@ -1,0 +1,9 @@
+.ipynb_checkpoints
+*.o
+*.mod
+*.a
+*.d
+*.x
+*.ex
+*.LOG
+a.out

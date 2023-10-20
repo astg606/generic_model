@@ -1,49 +1,24 @@
+CONFIG_DIR := $(CURDIR)/config
 
-DEBUG_FLAG    =
-CC_OPTIMIZE   = -O2
-OPTIMIZE_FLAG = -O2
-LDR_OPTS      =
+export CONFIG_DIR
 
-MAKE       = make
+include $(CONFIG_DIR)/common.mk 
 
-MV         = mv
+.PHONY: all clean 
 
-FC         = gfortran
-FFLAGS     = -c  $(DEBUG_FLAG) $(OPTIMIZE_FLAG)
+SRCS := definedConstantsMod.F90 calendarMod.F90 derivedTypeStationMod.F90 derivedTypeStationProgram.F90 classStationMod.F90 classStationProgram.F90
 
-LDR        = $(FC)
-LDFLAGS    = $(LDR_OPTS)
-
-
-
-SRCS       = definedConstantsMod.F90 calendarMod.F90 derivedTypeStationMod.F90 derivedTypeStationProgram.F90 classStationMod.F90 classStationProgram.F90
-
-OBJS1      = definedConstantsMod.o calendarMod.o derivedTypeStationMod.o derivedTypeStationProgram.o 
-OBJS2      = definedConstantsMod.o calendarMod.o classStationMod.o classStationProgram.o
-
-
-FSOURCE    = *.F90
+OBJS1 := definedConstantsMod.o calendarMod.o derivedTypeStationMod.o derivedTypeStationProgram.o
+OBJS2 := definedConstantsMod.o calendarMod.o classStationMod.o classStationProgram.o
 
 all: derivedTypeStationProgram.ex classStationProgram.ex
 
-derivedTypeStationProgram.ex:   $(OBJS1) 
-	$(FC) -o derivedTypeStationProgram.ex $(OBJS1) 
+derivedTypeStationProgram.ex:  $(OBJS1)
+	$(FC) $(FFLAGS) $^ -o $@ $(LDFLAGS)
 
-classStationProgram.ex:   $(OBJS2) 
-	$(FC) -o classStationProgram.ex $(OBJS2) 
+classStationProgram.ex: $(OBJS2)
+	$(FC) $(FFLAGS) $^ -o $@ $(LDFLAGS)
 
-clean:
+clean: 
 	rm -f *.o *.mod *.ex
 
-###################################################
-#
-###################################################
-
-.SUFFIXES:
-.SUFFIXES: .o .c .f .F90 .h
-
-.c.o:
-	$(CC) $(CFLAGS) $(DEPEND_INC) $*.c
-
-.F90.o: $(FSOURCE)
-	$(FC) $(FFLAGS) $(DEPEND_INC) $(LINC) $?
